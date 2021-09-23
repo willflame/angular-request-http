@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
+import { take } from 'rxjs/operators';
 
 import { ICursoProps } from './models/ICursoProps';
 
@@ -16,5 +17,9 @@ export class CursosService {
 
   list(): Observable<ICursoProps[]> {
     return this.http.get<ICursoProps[]>(this.API);
+  }
+
+  create(curso: ICursoProps) {
+    return this.http.post<ICursoProps>(this.API, curso).pipe(take(1));
   }
 }

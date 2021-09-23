@@ -12,8 +12,7 @@ import { ICursoProps } from './../models/ICursoProps';
 export class CursosListaComponent implements OnInit {
 
   // cursos: ICursoProps[];
-
-  cursos$: Observable<ICursoProps[]>;
+  cursos$!: Observable<ICursoProps[]>;
 
   constructor(private cursosService: CursosService) { }
 
