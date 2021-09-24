@@ -5,13 +5,14 @@ import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 import { ICursoProps } from './models/ICursoProps';
+import { environment } from './../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CursosService {
 
-  private readonly API = 'http://localhost:3000/cursos';
+  private readonly API = `${environment.API}cursos`;
 
   constructor(private http: HttpClient) { }
 

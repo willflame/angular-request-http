@@ -27,6 +27,6 @@ export class AlertModalService {
   }
 
   showAlertSuccess(message: string) {
-    this.showAlert(message, AlertTypes.SUCCESS);
+    this.showAlert(message, AlertTypes.SUCCESS, 3000);
   }
 }
