@@ -44,10 +44,12 @@ export class CursosFormComponent implements OnInit {
       this.cursosService.create(this.form.value)
         .subscribe(
           success => {
-            this.modal.showAlertSuccess('Curso criado com sucesso!');
+            // this.modal.showAlertSuccess('Curso criado com sucesso!');
             this.location.back();
           },
-          error => this.modal.showAlertDanger('Erro ao criar curso, tente novamente!'),
+          error => {
+            // this.modal.showAlertDanger('Erro ao criar curso, tente novamente!');
+          },
           () => console.log('request completo')
         );
     }
