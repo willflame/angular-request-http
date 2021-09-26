@@ -1,4 +1,3 @@
-<p>cursos-lista works!</p>
 <div class="card">
   <div class="card-header d-flex justify-content-between">
     <div>
@@ -7,45 +6,47 @@
     <div>
       <button type="button"
               class="btn btn-primary"
-              [routerLink]="['novo']">Novo Curso</button>
+              [routerLink]="['create']">Novo Curso</button>
     </div>
   </div>
   <div class="card-body">
     <table class="table table-hover"
-            *ngIf="cursos$ | async as cursos; else loadingError" >
+            *ngIf="cursos$ | async as cursos; else loading" >
       <thead>
         <tr>
           <th>#</th>
           <th>Curso</th>
-          <th></th>
+          <th>Ações:</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let curso of cursos" >
           <td>{{ curso?.id }}</td>
           <td>{{ curso?.name }}</td>
-          <td>
-            <span class="float-right">
-              <button class="btn btn-outline-warning mb-1 btn-sm">
-                Atualizar
-              </button>
+          <td class="d-flex justify-content-between">
+            <button class="btn btn-outline-warning mb-1 btn-sm">
+              Atualizar
+            </button>
               {{ ' ' }}
-              <button class="btn btn-outline-danger mb-1 btn-sm">
-                Remover
-              </button>
-            </span>
+            <button class="btn btn-outline-danger mb-1 btn-sm">
+              Remover
+            </button>
           </td>
         </tr>
       </tbody>
     </table>
 
-    <ng-template #loadingError>
+    <ng-template #loading>
+      <span>Carregando...</span>
+    </ng-template>
+
+    <!-- <ng-template #loadingError>
       <div *ngIf="error$ | async; else loading">
         Error ao carregar cursos. Tente novamente mais tarde.
       </div>
       <ng-template #loading>
         <span>Carregando...</span>
       </ng-template>
-    </ng-template>
+    </ng-template> -->
   </div>
 </div>

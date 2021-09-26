@@ -1,4 +1,3 @@
-import { AlertModalService } from './../../shared/alert-modal/alert-modal.service';
 import { Component, OnInit } from '@angular/core';
 
 import { empty, Observable, Subject } from 'rxjs';
@@ -7,6 +6,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
 
 import { CursosService } from '../cursos.service';
 import { ICursoProps } from './../models/ICursoProps';
+import { AlertModalService } from './../../shared/alert-modal/alert-modal.service';
 
 @Component({
   selector: 'app-cursos-lista',

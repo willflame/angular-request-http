@@ -1,1 +1,41 @@
-<p>cursos-form works!</p>
+<form [formGroup]="form" class="row g-3 needs-validation" novalidate>
+  <div class="col-12">
+    <label for="nome" class="form-label">Nome do curso</label>
+    <input
+      type="text"
+      class="form-control"
+      id="nome"
+      formControlName="name"
+      placeholder="Nome do curso"
+      [ngClass]="{ 'is-invalid': submitted && hasError('name') }"
+    />
+    <div
+      *ngIf="hasError('name') "
+      class="invalid-feedback"
+    >
+      Informe um nome válido.
+    </div>
+    <!-- <div
+      *ngIf="hasError('name') && hasError('name')['minlength']"
+      class="invalid-feedback"
+    >
+      Campo precia ter mais de
+      {{ hasError("name")["minlength"].requiredLength }} caracteres.
+    </div>
+    <div
+      *ngIf="hasError('name') && hasError('name')['maxlength']"
+      class="invalid-feedback"
+    >
+      Campo precia ter menos de
+      {{ hasError("name")["maxlength"].requiredLength }} caracteres.
+    </div> -->
+  </div>
+  <div class="col-12">
+    <button class="btn btn-primary" type="submit" (click)="onSubmit()">
+      Salvar
+    </button>
+    <button class="btn btn-default" type="button" (click)="onCancel()">
+      Cancelar
+    </button>
+  </div>
+</form>
