@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { AlertModalComponent } from './alert-modal.component';
 
 export enum AlertTypes {
   DANGER = 'danger',
@@ -10,23 +12,23 @@ export enum AlertTypes {
 })
 export class AlertModalService {
 
-  // constructor(private modalService: BsModalService) { }
+  constructor(private modalService: BsModalService) { }
 
-  // private shwoAlert(message: string, type: AlertTypes, dismissTimeout?: number) {
-  //   const bsModalRef: BsModalRef = this.modalService.show(AlertModalComponent);
-  //   bsModalRef.content.type = type;
-  //   bsModalRef.content.message = message;
+  private showAlert(message: string, type: AlertTypes, dismissTimeout?: number) {
+    const bsModalRef: BsModalRef = this.modalService.show(AlertModalComponent);
+    bsModalRef.content.type = type;
+    bsModalRef.content.message = message;
 
-  //   if (dismissTimeout) {
-  //     setTimeout(() => bsModalRef.hide(), dismissTimeout);
-  //   }
-  // }
+    if (dismissTimeout) {
+      setTimeout(() => bsModalRef.hide(), dismissTimeout);
+    }
+  }
 
-  // showAlertDanger(message: string) {
-  //   this.showAlert(message, AlertTypes.DANGER);
-  // }
+  showAlertDanger(message: string , dismissTimeout?: number) {
+    this.showAlert(message, AlertTypes.DANGER, dismissTimeout);
+  }
 
-  // showAlertSuccess(message: string) {
-  //   this.showAlert(message, AlertTypes.SUCCESS, 3000);
-  // }
+  showAlertSuccess(message: string, dismissTimeout?: number) {
+    this.showAlert(message, AlertTypes.SUCCESS, dismissTimeout);
+  }
 }
