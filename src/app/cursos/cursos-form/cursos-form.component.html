@@ -1,4 +1,9 @@
-<form [formGroup]="form" class="row g-3 needs-validation" novalidate>
+<form
+  [formGroup]="form"
+  class="row g-3 needs-validation"
+  style="margin-top: 10px"
+  novalidate
+>
   <div class="col-12">
     <label for="nome" class="form-label">Nome do curso</label>
     <input
@@ -9,10 +14,7 @@
       placeholder="Nome do curso"
       [ngClass]="{ 'is-invalid': submitted && hasError('name') }"
     />
-    <div
-      *ngIf="hasError('name') "
-      class="invalid-feedback"
-    >
+    <div *ngIf="hasError('name')" class="invalid-feedback">
       Informe um nome válido.
     </div>
     <!-- <div

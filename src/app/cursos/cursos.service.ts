@@ -20,7 +20,7 @@ export class CursosService {
     return this.http.get<ICursoProps[]>(this.API);
   }
 
-  create(curso: ICursoProps) {
+  create(curso: ICursoProps): Observable<ICursoProps> {
     return this.http.post<ICursoProps>(this.API, curso).pipe(take(1));
   }
 }
