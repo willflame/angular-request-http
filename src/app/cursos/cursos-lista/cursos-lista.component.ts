@@ -7,6 +7,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
 import { CursosService } from '../cursos.service';
 import { ICursoProps } from './../models/ICursoProps';
 import { AlertModalService } from './../../shared/alert-modal/alert-modal.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-cursos-lista',
@@ -24,6 +25,8 @@ export class CursosListaComponent implements OnInit {
     private cursosService: CursosService,
     // private modalService: BsModalService,
     private alertService: AlertModalService,
+    private router: Router,
+    private route: ActivatedRoute,
   ) { }
 
   ngOnInit(): void {
@@ -48,6 +51,14 @@ export class CursosListaComponent implements OnInit {
 
     this.alertService.showAlertDanger(
       'Error ao carregar cursos. Tente novamente mais tarde.', 2000);
+  }
+
+  onEdit(id: number) {
+    this.router.navigate(['edit', id], { relativeTo: this.route });
+  }
+
+  onRemove(id: number) {
+
   }
 
 }

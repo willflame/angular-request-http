@@ -20,6 +20,10 @@ export class CursosService {
     return this.http.get<ICursoProps[]>(this.API);
   }
 
+  loadById(id: number): Observable<ICursoProps> {
+    return this.http.get<ICursoProps>(`${this.API}/${id}`).pipe(take(1));
+  }
+
   create(curso: ICursoProps): Observable<ICursoProps> {
     return this.http.post<ICursoProps>(this.API, curso).pipe(take(1));
   }
