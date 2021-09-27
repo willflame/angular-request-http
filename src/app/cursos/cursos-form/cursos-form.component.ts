@@ -39,34 +39,37 @@ export class CursosFormComponent implements OnInit {
     //   }
     // );
 
-    this.route.params
-      .pipe(
-        map((params: any) => params['id']),
-        switchMap(id => this.cursosService.loadById(id))
-        // switchMap(cursos => obterAulas)
-      )
-      .subscribe(curso => this.setValueForm(curso));
+    // this.route.params
+    //   .pipe(
+    //     map((params: any) => params['id']),
+    //     switchMap(id => this.cursosService.loadById(id))
+    //     // switchMap(cursos => obterAulas)
+    //   )
+    //   .subscribe(curso => this.setValueForm(curso));
 
     // concatMap -> ordem da requisição importa
     // mergeMap -> ordem não importa
     // exhaustMap -> casos de login
 
-    this.form = this.createForm();
+    const curso = this.route.snapshot.data['curso'];
+
+    this.form = this.createForm(curso);
+    // this.setValueForm(curso);
   }
 
-  private createForm() {
+  private createForm(curso: ICursoProps) {
     return this.fb.group({
-      id: [null],
-      name: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
+      id: [curso.id],
+      name: [curso.name, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
     });
   }
 
-  private setValueForm(curso: ICursoProps) {
-    this.form.patchValue({
-      id: curso.id,
-      name: curso.name,
-    });
-  }
+  // private setValueForm(curso: ICursoProps) {
+  //   this.form.patchValue({
+  //     id: curso.id,
+  //     name: curso.name,
+  //   });
+  // }
 
   hasError(field: string) {
     return this.form.get(field)?.errors;
