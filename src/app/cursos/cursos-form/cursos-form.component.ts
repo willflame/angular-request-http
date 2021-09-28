@@ -6,7 +6,7 @@ import { Location } from '@angular/common';
 import { CursosService } from './../cursos.service';
 import { AlertModalService } from './../../shared/alert-modal/alert-modal.service';
 import { ActivatedRoute } from '@angular/router';
-import { map, switchMap } from 'rxjs/operators';
+// import { map, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-cursos-form',
@@ -77,15 +77,29 @@ export class CursosFormComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-    if(this.form.valid) {
-      this.cursosService.create(this.form.value)
+    if (this.form.valid) {
+      // if (this.form.value.id) {
+      //   this.update();
+      // } else {
+      //   this.create();
+      // }
+
+      let messageSuccess = 'Curso criado com sucesso!';
+      let messageError = 'Erro ao criar curso, tente novamente!';
+
+      if (this.form.value.id) {
+        messageSuccess = 'Curso atualizado com sucesso!';
+        messageError = 'Erro ao atualizar curso, tente novamente!';
+      }
+
+      this.cursosService.save(this.form.value)
         .subscribe(
           success => {
-            this.modal.showAlertSuccess('Curso criado com sucesso!', 1500);
+            this.modal.showAlertSuccess(messageSuccess, 1500);
             this.location.back();
           },
           error => {
-            this.modal.showAlertDanger('Erro ao criar curso, tente novamente!',1500);
+            this.modal.showAlertDanger(messageError, 1500);
           },
           () => console.log('request completo')
         );
@@ -96,4 +110,32 @@ export class CursosFormComponent implements OnInit {
     this.submitted = false;
     this.form.reset();
   }
+
+  // private create() {
+  //   this.cursosService.create(this.form.value)
+  //     .subscribe(
+  //       success => {
+  //         this.modal.showAlertSuccess('Curso criado com sucesso!', 1500);
+  //         this.location.back();
+  //       },
+  //       error => {
+  //         this.modal.showAlertDanger('Erro ao criar curso, tente novamente!',1500);
+  //       },
+  //       () => console.log('request completo')
+  //     );
+  // }
+
+  // private update() {
+  //   this.cursosService.update(this.form.value)
+  //     .subscribe(
+  //       success => {
+  //         this.modal.showAlertSuccess('Curso atualizado com sucesso!', 1500);
+  //         this.location.back();
+  //       },
+  //       error => {
+  //         this.modal.showAlertDanger('Erro ao atualizar curso, tente novamente!',1500);
+  //       },
+  //       () => console.log('request completo')
+  //     );
+  // }
 }
