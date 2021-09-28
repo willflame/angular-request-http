@@ -12,7 +12,7 @@ import { environment } from './../../environments/environment';
 })
 export class CursosService {
 
-  private readonly API = `${environment.API}cursos`;
+  private readonly API = `${environment.API}/cursos`;
 
   constructor(private http: HttpClient) { }
 
