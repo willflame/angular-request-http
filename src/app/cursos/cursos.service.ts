@@ -6,7 +6,6 @@ import { take } from 'rxjs/operators';
 
 import { ICursoProps } from './models/ICursoProps';
 import { environment } from './../../environments/environment';
-import { cursorTo } from 'readline';
 
 @Injectable({
   providedIn: 'root'
@@ -25,11 +24,15 @@ export class CursosService {
     return this.http.get<ICursoProps>(`${this.API}/${id}`).pipe(take(1));
   }
 
-  save(curso: ICursoProps) {
+  save(curso: ICursoProps): Observable<ICursoProps> {
     if (curso.id) {
       return this.update(curso);
     }
     return this.create(curso);
+  }
+
+  remove(id: number): Observable<ICursoProps> {
+    return this.http.delete<ICursoProps>(`${this.API}/${id}`).pipe(take(1));
   }
 
   private create(curso: ICursoProps): Observable<ICursoProps> {

@@ -18,7 +18,7 @@
         <tr>
           <th>#</th>
           <th>Curso</th>
-          <th>Ações:</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -35,7 +35,7 @@
             {{ " " }}
             <button
               class="btn btn-outline-danger mb-1 btn-sm"
-              (click)="onRemove(curso.id!)"
+              (click)="onDelete(curso.id!)"
             >
               Remover
             </button>
@@ -58,3 +58,11 @@
     </ng-template> -->
   </div>
 </div>
+
+<ng-template #deleteModal>
+  <div class="modal-body text-center">
+    <p>Tem certeza que deseja remover este curso?</p>
+    <button type="button" class="btn btn-default" (click)="onConfirmDelete()">Confirmar</button>
+    <button type="button" class="btn btn-primary" (click)="onDeclineDelete()">Cancelar</button>
+  </div>
+</ng-template>
