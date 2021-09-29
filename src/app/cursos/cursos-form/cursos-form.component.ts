@@ -4,7 +4,7 @@ import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/fo
 import { Location } from '@angular/common';
 
 import { CursosService } from './../cursos.service';
-import { AlertModalService } from './../../shared/alert-modal/alert-modal.service';
+import { AlertModalService } from './../../shared/alert-modal.service';
 import { ActivatedRoute } from '@angular/router';
 // import { map, switchMap } from 'rxjs/operators';
 

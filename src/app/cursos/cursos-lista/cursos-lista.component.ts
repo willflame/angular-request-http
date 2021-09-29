@@ -1,13 +1,13 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { empty, Observable, Subject } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { EMPTY, Observable, Subject } from 'rxjs';
+import { catchError, take, switchMap } from 'rxjs/operators';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
 import { CursosService } from '../cursos.service';
 import { ICursoProps } from './../models/ICursoProps';
-import { AlertModalService } from './../../shared/alert-modal/alert-modal.service';
+import { AlertModalService } from './../../shared/alert-modal.service';
 
 @Component({
   selector: 'app-cursos-lista',
@@ -48,7 +48,7 @@ export class CursosListaComponent implements OnInit {
           console.log(error);
           // this.error$.next(true);
           this.handleError();
-          return empty();
+          return EMPTY;
         })
       );
   }
@@ -68,25 +68,41 @@ export class CursosListaComponent implements OnInit {
 
   onDelete(id: number): void {
     this.cursoSelectId = id;
-    this.deleteModalRef = this.modalService.show(this.deleteModal, { class: 'modal-sm' });
-  }
+    // this.deleteModalRef = this.modalService.show(this.deleteModal, { class: 'modal-sm' });
 
-  onConfirmDelete(): void {
-    this.cursosService.remove(this.cursoSelectId)
+    const result$ = this.alertService.showConfirm("Deletar curso", "Tem certeza que deseja remover este curso?");
+    result$.asObservable()
+      .pipe(
+        take(1),
+        switchMap(result => result ? this.cursosService.remove(id) : EMPTY )
+      )
       .subscribe(
         success => {
           this.alertService.showAlertSuccess('Curso removido com sucesso', 2000);
           this.onRefresh();
-          this.onDeclineDelete();
         },
         error => {
           this.alertService.showAlertDanger('Error ao remover curso. Tente novamente mais tarde.', 2000);
-          this.onDeclineDelete();
         }
       );
   }
 
-  onDeclineDelete(): void {
-    this.deleteModalRef.hide();
-  }
+  // onConfirmDelete(): void {
+  //   this.cursosService.remove(this.cursoSelectId)
+  //     .subscribe(
+  //       success => {
+  //         this.alertService.showAlertSuccess('Curso removido com sucesso', 2000);
+  //         this.onRefresh();
+  //         this.onDeclineDelete();
+  //       },
+  //       error => {
+  //         this.alertService.showAlertDanger('Error ao remover curso. Tente novamente mais tarde.', 2000);
+  //         this.onDeclineDelete();
+  //       }
+  //     );
+  // }
+
+  // onDeclineDelete(): void {
+  //   this.deleteModalRef.hide();
+  // }
 }
