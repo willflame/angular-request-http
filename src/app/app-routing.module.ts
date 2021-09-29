@@ -8,7 +8,11 @@ const routes: Routes = [
     loadChildren: () => import('./cursos/cursos.module').then(m => m.CursosModule)
   },
   {
-    path: '', pathMatch: 'full', redirectTo: 'cursos'
+    path: 'upload',
+    loadChildren: () => import('./upload-file/upload-file.module').then(m => m.UploadFileModule)
+  },
+  {
+    path: '', pathMatch: 'full', redirectTo: 'upload'
   },
   { path: '**', redirectTo: 'cursos' }
 ];
