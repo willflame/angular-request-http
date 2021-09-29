@@ -3,11 +3,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { EMPTY, Observable, Subject } from 'rxjs';
 import { catchError, take, switchMap } from 'rxjs/operators';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal';
 
-import { CursosService } from '../cursos.service';
 import { ICursoProps } from './../models/ICursoProps';
 import { AlertModalService } from './../../shared/alert-modal.service';
+import { Cursos2Service } from '../cursos2.service';
 
 @Component({
   selector: 'app-cursos-lista',
@@ -27,8 +27,9 @@ export class CursosListaComponent implements OnInit {
   cursoSelectId: number;
 
   constructor(
-    private cursosService: CursosService,
-    private modalService: BsModalService,
+    // private cursosService: CursosService,
+    private cursosService: Cursos2Service,
+    // private modalService: BsModalService,
     private alertService: AlertModalService,
     private router: Router,
     private route: ActivatedRoute,

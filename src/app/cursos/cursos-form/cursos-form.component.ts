@@ -1,11 +1,11 @@
-import { ICursoProps } from './../models/ICursoProps';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
-
-import { CursosService } from './../cursos.service';
-import { AlertModalService } from './../../shared/alert-modal.service';
 import { ActivatedRoute } from '@angular/router';
+
+import { AlertModalService } from './../../shared/alert-modal.service';
+import { Cursos2Service } from '../cursos2.service';
+import { ICursoProps } from './../models/ICursoProps';
 // import { map, switchMap } from 'rxjs/operators';
 
 @Component({
@@ -20,7 +20,8 @@ export class CursosFormComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private cursosService: CursosService,
+    private cursosService: Cursos2Service,
+    // private cursosService: CursosService,
     private modal: AlertModalService,
     private location: Location,
     private route: ActivatedRoute,
@@ -92,7 +93,7 @@ export class CursosFormComponent implements OnInit {
         messageError = 'Erro ao atualizar curso, tente novamente!';
       }
 
-      this.cursosService.save(this.form.value)
+      this.cursosService.save(this.form.value, this.form.value.id)
         .subscribe(
           success => {
             this.modal.showAlertSuccess(messageSuccess, 1500);
