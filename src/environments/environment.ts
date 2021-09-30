@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   API: '/api',
+  API_NODE: 'http://localhost:3333',
 };
 
 /*
