@@ -7,11 +7,30 @@
       (change)="onChange($event)"
       multiple
     />
-    <label class="input-group-text" for="customFileLabel">Selecionar arquivo</label>
+    <label class="input-group-text" for="customFileLabel"
+      >Selecionar arquivo</label
+    >
+  </div>
+  <div class="progress" style="margin-top: 10px;" *ngIf="showBarProgress">
+    <div
+      class="progress-bar"
+      role="progressbar"
+      [style.width]="progress + '%'"
+      aria-valuenow="25"
+      aria-valuemin="0"
+      aria-valuemax="100"
+    >
+      {{progress}}%
+    </div>
   </div>
 </div>
 <div style="margin-top: 10px">
-  <button type="button" class="btn btn-primary" [disabled]="!files" (click)="onUpload()">
+  <button
+    type="button"
+    class="btn btn-primary"
+    [disabled]="!files"
+    (click)="onUpload()"
+  >
     Upload
   </button>
 </div>
