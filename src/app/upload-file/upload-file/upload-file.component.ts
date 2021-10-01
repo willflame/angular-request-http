@@ -3,6 +3,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { UploadFileService } from '../upload-file.service';
 import { Subscription } from 'rxjs';
 import { HttpEvent, HttpEventType } from '@angular/common/http';
+import { filterResponse, uploadProgress } from 'src/app/shared/rxjs-oprators';
 
 @Component({
   selector: 'app-upload-file',
@@ -43,23 +44,27 @@ export class UploadFileComponent implements OnInit, OnDestroy {
 
       this.fileUpload$ = this.uploadService
         .upload(this.files, `${environment.API_NODE}/upload`)
-        .subscribe(
-          (event: HttpEvent<Object>) => {
-            console.log(event);
-
-            if (event.type === HttpEventType.Response) {
-              console.log('Upload concluído');
-              this.showBarProgress = false;
-            } else if (event.type === HttpEventType.UploadProgress) {
-              const percentDone = Math.round(
-                (event.loaded * 100) / (event.total as number)
-              );
-
-              this.progress = percentDone;
-            }
-          },
-          (erro) => console.log(erro)
-        );
+        .pipe(
+          uploadProgress(progress => {
+            this.progress = progress;
+          }),
+          filterResponse(),
+        ).subscribe(response => {
+          console.log('Upload concluído', response);
+          this.showBarProgress = false;
+        })
+        // .subscribe(
+        //   (event: HttpEvent<Object>) => {
+        //     if (event.type === HttpEventType.Response) {
+        //       this.showBarProgress = false;
+        //     } else if (event.type === HttpEventType.UploadProgress) {
+        //       this.progress = Math.round(
+        //         (event.loaded * 100) / (event.total as number)
+        //       );
+        //     }
+        //   },
+        //   (erro) => console.log(erro)
+        // );
     }
   }
 }
