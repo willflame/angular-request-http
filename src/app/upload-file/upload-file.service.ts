@@ -20,4 +20,49 @@ export class UploadFileService {
       reportProgress: true,
     });
   }
+
+  download(url: string) {
+    return this.http.get(url, {
+      responseType: 'blob' as 'json',
+      // reportProgress
+      // content-length
+    });
+  }
+
+  handleFile(res: any, filename: string) {
+    console.log(res);
+        const file = new Blob([res], {
+          type: res.type
+        });
+
+        // IE
+        // if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+        //   window.navigator.msSaveOrOpenBlob(file);
+        //   return;
+        // }
+
+        const blob = window.URL.createObjectURL(file);
+
+        const link = document.createElement('a');
+        link.href = blob;
+        link.download = filename;
+
+        link.click();
+
+        // Firefox
+        link.dispatchEvent(new MouseEvent('click', {
+          bubbles: true,
+          cancelable: true,
+          view: window,
+        }));
+
+        // Firefox remover o link para o download
+        setTimeout(() => {
+          window.URL.revokeObjectURL(blob);
+          link.remove();
+        }, 100);
+
+        window.URL.revokeObjectURL(blob);
+        link.remove();
+  }
 }

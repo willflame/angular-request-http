@@ -24,6 +24,16 @@ app.post('/upload', multipartMiddleware, (req, res) => {
   return res.status(201).json({ message: files });
 });
 
+app.get('/downloadExcel', (req, res) => {
+  res.download('./uploads/arquivo.xlsx');
+  // return res.status(200).json('recebido');
+});
+
+app.get('/downloadPDF', (req, res) => {
+  res.download('./uploads/HMAX-30-anos.pdf');
+  // return res.status(200).json('recebido');
+});
+
 app.get('', (req, res) => {
   return res.status(200).json('recebido');
 })
