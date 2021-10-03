@@ -17,19 +17,21 @@
       </div>
     </div>
   </div>
-  <div class="search-list">
-    <h3>303 Records Found</h3>
+  <div class="search-list" *ngIf="results$" >
+    <h3 *ngIf="total" >{{ total }} Registros encontrados</h3>
     <table class="table" id="myTable">
       <thead>
         <tr>
-          <th>Title</th>
-          <th>Category</th>
+          <th>Nome</th>
+          <th>Descrição</th>
+          <th>Versão</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>HTML</td>
-          <td>Web Development</td>
+        <tr *ngFor="let result of results$ |async">
+          <td>{{ result.name }}</td>
+          <td>{{ result.description }}</td>
+          <td>{{ result.version }}</td>
         </tr>
       </tbody>
     </table>
